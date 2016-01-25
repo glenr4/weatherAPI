@@ -7,26 +7,30 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<h1>Weather</h1>
+	<div id="container">
+		<h1>Wordwide Weather</h1>
 
 
-	<div>
 		<input id="city" type="text">
+		<h2 id="location" class="hidden"></h2>
+
+		<div id="weather-today" class="hidden">
+			<img src="#" alt="">
+			<h3 class="current-temp"></h3>
+			<p class="high"></p>
+			<p class="low"></p>
+			<p class="forecast"></p>
+		</div>
+
+		<div class="next-day hidden">
+			<img src="#" alt="">
+			<p class="high"></p>
+			<p class="low"></p>
+			<p class="forecast"></p>
+		</div>
+
+		<div id="google-map" class="hidden"></div>
 	</div>
-
-	<div id="weather-today">
-		<img src="" alt="">
-		<p class="current-temp"></p>
-		<p class="high"></p>
-		<p class="low"></p>
-		<p class="forecast"></p>
-
-
-
-	</div>
-
-	<div id="google-map"></div>
-
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&sensor=false"></script>

@@ -1,3 +1,49 @@
+* {
+	/*border: 1px red solid;*/
+}
+
+body, html {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+}
+
+#weather-today {
+	width: 400px;
+	margin: 0 auto;
+	overflow: auto;
+}
+
+#weather-today img {
+	width: 150px;
+	float: left;
+	padding-right: 10px;
+}
+
+
 #google-map {
 	height: 500px;
+}
+
+h1 {
+	text-align: center;
+}
+
+#city {
+	display: block;
+	margin: 0 auto;
+}
+
+#location {
+	text-align: center;
+}
+
+.hidden {
+	/*display: none;*/
+	visibility: hidden;
 }

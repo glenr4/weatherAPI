@@ -48,13 +48,33 @@ function showWeather(result){
 	console.log(todayWeather);
 	console.log(todayIcon);
 
+	// Todays weather
 	$("#weather-today img").attr("src", todayIcon);
 	$("#weather-today .current-temp").html("Currently: "+ currentTemp);
 	$("#weather-today .high").html("High: "+ todayHigh);
 	$("#weather-today .low").html("Low: "+ todayLow);
 	$("#weather-today .forecast").html(todayWeather);
+	$("#location").empty().append("Weather for "+ fullName);
+	// Show hidden elements
+	$("#location").removeClass("hidden");
+	$("#weather-today").removeClass("hidden");
 
+	// Weather for following days
+	var result = $('.templates .answerer').clone();
+	
 
+/*		// answerers
+	$.each(result.items, function(i, item){
+		var answerer = showAnswerer(item);
+		$('.results').append(answerer);
+	});
+	// Name, picture and profile
+	var nameElem = result.find('.name a');
+	nameElem.prepend("<p>"+ answerer.user.display_name);
+	nameElem.attr('href', answerer.user.link);
+	var nameImg = result.find('.name img');
+	nameImg.attr('src', answerer.user.profile_image);
+*/
 
 };
 
