@@ -31,50 +31,62 @@ function getWeather(place){
 // Currently only handles metric units, extend later to handle Fahrenheit
 function showWeather(result){
 	var fullName = result.current_observation.display_location.full;
-	var currentTemp = formatTemp(result.current_observation.temp_c);
-	var currentWeather = result.current_observation.weather;
 
+	// var currentWeather = result.current_observation.weather;
+	// Data for today
+	var currentTemp = formatTemp(result.current_observation.temp_c);
 	var todayHigh = formatTemp(result.forecast.simpleforecast.forecastday[0].high.celsius);
 	var todayLow = formatTemp(result.forecast.simpleforecast.forecastday[0].low.celsius);
 	var todayWeather = result.forecast.txt_forecast.forecastday[0].fcttext_metric;
 	var todayIcon = result.forecast.txt_forecast.forecastday[0].icon_url;
 
-	console.log(fullName);
-	console.log(currentTemp);
-	console.log(currentWeather);
-
-	console.log(todayHigh);
-	console.log(todayLow);
-	console.log(todayWeather);
-	console.log(todayIcon);
-
-	// Todays weather
-	$("#weather-today img").attr("src", todayIcon);
+	// Show location
+	$("#location").empty().append("Weather for "+ fullName);
+	// Today's weather
 	$("#weather-today .current-temp").html("Currently: "+ currentTemp);
+	$("#weather-today img").attr("src", todayIcon);
 	$("#weather-today .high").html("High: "+ todayHigh);
 	$("#weather-today .low").html("Low: "+ todayLow);
 	$("#weather-today .forecast").html(todayWeather);
-	$("#location").empty().append("Weather for "+ fullName);
-	// Show hidden elements
-	$("#location").removeClass("hidden");
-	$("#weather-today").removeClass("hidden");
+	
+	// Weather for following days
+	
+	// console.log(result.forecast.simpleforecast.forecastday);
 
 	// Weather for following days
-	var result = $('.templates .answerer').clone();
-	
+	$.each(result.forecast.simpleforecast.forecastday, function(i, item){
 
-/*		// answerers
-	$.each(result.items, function(i, item){
-		var answerer = showAnswerer(item);
-		$('.results').append(answerer);
+		if(i!==0){	// skip today
+			// Next day 	
+			console.log("Next day");
+			console.log(item);
+			var nextHigh = formatTemp(item.high.celsius);
+			var nextLow = formatTemp(item.low.celsius);
+			var nextWeather = item.conditions;
+			var nextIcon = item.icon_url;
+			var nextDayOfWeek = item.date.weekday;
+
+			// Create new div and populate
+			var nextDay = $(".templates .next-day").clone();
+
+			var dayOfWeekElem = nextDay.find(".weekday");
+			dayOfWeekElem.html(nextDayOfWeek);
+			var highElem = nextDay.find(".high");
+			highElem.html("High: " +nextHigh);
+			var lowElem = nextDay.find(".low");
+			lowElem.html("High: " +nextLow);
+			var forecastElem = nextDay.find(".forecast");
+			forecastElem.html("High: " +nextWeather);
+			var iconElem = nextDay.find("img");
+			iconElem.attr("src", nextIcon);
+
+			$(".following-days").append(nextDay);
+		};
 	});
-	// Name, picture and profile
-	var nameElem = result.find('.name a');
-	nameElem.prepend("<p>"+ answerer.user.display_name);
-	nameElem.attr('href', answerer.user.link);
-	var nameImg = result.find('.name img');
-	nameImg.attr('src', answerer.user.profile_image);
-*/
+	// Show hidden elements
+	$(".hidden").removeClass("hidden");
+	// $("#weather-today").removeClass("hidden");
+
 
 };
 
