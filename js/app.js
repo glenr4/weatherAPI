@@ -1,8 +1,17 @@
 // a25e9129ca234ec1
 
-// Need to manually convert Fahrenheit temperatures to Celsius
+
 
 $(document).ready(function(){
+	// Autocomplete for drop down list of cities
+	$('input#city').geocomplete({
+	  map: '#google-map'
+	});
+
+});
+
+
+
 	$.ajax({
 		url: "http://api.wunderground.com/api/a25e9129ca234ec1/conditions/forecast/q/Australia/Sydney.json",
 		data: "request",
