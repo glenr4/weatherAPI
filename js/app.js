@@ -1,7 +1,40 @@
-// a25e9129ca234ec1
+/*
+Flickr
+Key:
+af1df5d17d123f5acf4da73848a1c8c7
+
+Secret:
+f306370346ca45ab
 
 
+https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=10&lat=-33.3270685&lon=115.63917360000005&radius=10&tags=bunbury,western,australia&tag_mode=all
 
+https://farm6.staticflickr.com/5694/20178665614_c3381c0634_b.jpg
+*/
+
+// Gets an image of the place from Flickr to display as the background
+function getImage(place){
+	// Get location data
+	var lat = place.geometry.location.lat();
+	var lng = place.geometry.location.lng();
+
+	console.log("Lat: "+ lat +",Long: "+ lng);
+
+	// Request images for the place
+	$.ajax({
+		url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=10&lat=-33.3270685&lon=115.63917360000005&radius=10&tags=bunbury,western,australia&tag_mode=all&format=json",
+		dataType: "jsonp",
+		jsonp: "jsoncallback",
+		type: "GET"
+	})
+	.done(function(result){
+		console.log(result);
+		// showImage(result);
+	})
+	.fail(function(jqXHR, status, error){ //this waits for the ajax to return with an error promise object
+		console.log(status +"\n"+ error +"\n"+ jqXHR.responseText);
+	});
+};
 
 
 // Called after a geoplace has been found and then requests the weather
@@ -9,6 +42,8 @@ function getWeather(place){
 	// Get location data
 	var lat = place.geometry.location.lat();
 	var lng = place.geometry.location.lng();
+
+	console.log("Lat: "+ lat +",Long: "+ lng);
 
 	// Request the weather forecast for the place
 	$.ajax({
@@ -19,7 +54,7 @@ function getWeather(place){
 		type: "GET"
 	})
 	.done(function(result){
-		console.log(result);
+		// console.log(result);
 		showWeather(result);
 	})
 	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
@@ -56,8 +91,8 @@ function showWeather(result){
 
 		if(i!==0){	// skip today
 			// Next day 	
-			console.log("Next day");
-			console.log(item);
+			// console.log("Next day");
+			// console.log(item);
 			var nextHigh = formatTemp(item.high.celsius);
 			var nextLow = formatTemp(item.low.celsius);
 			var nextWeather = item.conditions;
@@ -74,7 +109,7 @@ function showWeather(result){
 			var lowElem = nextDay.find(".low");
 			lowElem.html("High: " +nextLow);
 			var forecastElem = nextDay.find(".forecast");
-			forecastElem.html("High: " +nextWeather);
+			forecastElem.html(nextWeather);
 			var iconElem = nextDay.find("img");
 			iconElem.attr("src", nextIcon);
 
@@ -94,6 +129,11 @@ function formatTemp(temp){
 	return temp;
 };
 
+// Calls the functions above to get and display the weather and background image
+function displayWeather(place){
+	getWeather(place);
+	getImage(place);
+}
 
 $(document).ready(function(){
 	// Autocomplete for drop down list of cities
