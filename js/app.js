@@ -1,14 +1,17 @@
 // Gets an image of the place from Flickr to display as the background
 function getImage(place){
 	// Get location data
+	var fullName = place.address_components[0].long_name;
+	// console.log("fullName: "+ fullName);
 	var lat = place.geometry.location.lat();
 	var lng = place.geometry.location.lng();
 
-	console.log("Lat: "+ lat +",Long: "+ lng);
+	// console.log("Lat: "+ lat +",Long: "+ lng);
 
 	// Request images for the place
 	$.ajax({
-		url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=50&lat=-33.3270685&lon=115.63917360000005&radius=10&text=bunbury&sort=interestingness-desc&format=json",
+		// url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=50&lat=-33.3270685&lon=115.63917360000005&radius=10&text=bunbury&sort=interestingness-desc&format=json",
+		url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=50&lat="+ lat +"&lon="+lng+"&radius=10&text="+ fullName +"&sort=interestingness-desc&format=json",
 		dataType: "jsonp",
 		jsonp: "jsoncallback",
 		type: "GET"
@@ -42,7 +45,7 @@ function getWeather(place){
 	var lat = place.geometry.location.lat();
 	var lng = place.geometry.location.lng();
 
-	console.log("Lat: "+ lat +",Long: "+ lng);
+	// console.log("Lat: "+ lat +",Long: "+ lng);
 
 	// Request the weather forecast for the place
 	$.ajax({
