@@ -7,11 +7,17 @@ body, html {
 	padding: 0px;
 }
 
+body {
+	background-size: contain;
+	background-position: center top;
+}
 
 #container {
 	/*width: 800px;*/
 	max-width: 450px;
 	margin: 0 auto;
+	background-color: #F1F1F1;
+	border-radius: 10px;
 }
 
 #weather-today {
@@ -26,9 +32,9 @@ body, html {
 	padding-right: 10px;
 }
 
-
 #google-map {
 	height: 500px;
+	border-radius: 10px;
 }
 
 h1 {

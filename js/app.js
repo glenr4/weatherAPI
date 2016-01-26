@@ -1,17 +1,3 @@
-/*
-Flickr
-Key:
-af1df5d17d123f5acf4da73848a1c8c7
-
-Secret:
-f306370346ca45ab
-
-
-https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=10&lat=-33.3270685&lon=115.63917360000005&radius=10&tags=bunbury,western,australia&tag_mode=all
-
-https://farm6.staticflickr.com/5694/20178665614_c3381c0634_b.jpg
-*/
-
 // Gets an image of the place from Flickr to display as the background
 function getImage(place){
 	// Get location data
@@ -23,14 +9,12 @@ function getImage(place){
 	// Request images for the place
 	$.ajax({
 		url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=50&lat=-33.3270685&lon=115.63917360000005&radius=10&text=bunbury&sort=interestingness-desc&format=json",
-		
-		// url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=10&text=bunbury%20western%20australia&sort=relevance&format=json",
 		dataType: "jsonp",
 		jsonp: "jsoncallback",
 		type: "GET"
 	})
 	.done(function(result){
-		console.log(result);
+		// console.log(result);
 		showImage(result);
 	})
 	.fail(function(jqXHR, status, error){ //this waits for the ajax to return with an error promise object
@@ -38,26 +22,18 @@ function getImage(place){
 	});
 };
 
+// Show a local background image
 function showImage(result){
-	// Weather for following days
-	$("#delete-me").empty();
-	var imageURL;
-	var imageElem;
-	var image;
+	var imageNo = parseInt(Math.random()*49);
+	// console.log(imageNo);
 
-	$("#delete-me").empty();
-	$.each(result.photos.photo, function(i, item){
-		imageURL = "https://farm"+ item.farm +".staticflickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_b.jpg";
+	var item = result.photos.photo[imageNo];
+	// console.log(item);
 
-		image = $(".templates .temp-images").clone();
+	var imageURL = "https://farm"+ item.farm +".staticflickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_b.jpg";
+	// console.log(imageURL);
 
-		imageElem = image.find("img");
-		imageElem.attr("src", imageURL);
-
-		$("#delete-me").append(imageElem);
-	});
-
-
+	$("body").css("background-image", "url("+ imageURL +")");
 };
 
 // Called after a geoplace has been found and then requests the weather
