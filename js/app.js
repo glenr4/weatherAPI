@@ -109,7 +109,7 @@ function showWeather(result){
 			var highElem = nextDay.find(".high");
 			highElem.html("High: " +nextHigh);
 			var lowElem = nextDay.find(".low");
-			lowElem.html("High: " +nextLow);
+			lowElem.html("Low: " +nextLow);
 			var forecastElem = nextDay.find(".forecast");
 			forecastElem.html(nextWeather);
 			var iconElem = nextDay.find("img");
