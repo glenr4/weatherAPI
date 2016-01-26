@@ -22,20 +22,43 @@ function getImage(place){
 
 	// Request images for the place
 	$.ajax({
-		url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=10&lat=-33.3270685&lon=115.63917360000005&radius=10&tags=bunbury,western,australia&tag_mode=all&format=json",
+		url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=50&lat=-33.3270685&lon=115.63917360000005&radius=10&text=bunbury&sort=interestingness-desc&format=json",
+		
+		// url: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af1df5d17d123f5acf4da73848a1c8c7&per_page=10&text=bunbury%20western%20australia&sort=relevance&format=json",
 		dataType: "jsonp",
 		jsonp: "jsoncallback",
 		type: "GET"
 	})
 	.done(function(result){
 		console.log(result);
-		// showImage(result);
+		showImage(result);
 	})
 	.fail(function(jqXHR, status, error){ //this waits for the ajax to return with an error promise object
 		console.log(status +"\n"+ error +"\n"+ jqXHR.responseText);
 	});
 };
 
+function showImage(result){
+	// Weather for following days
+	$("#delete-me").empty();
+	var imageURL;
+	var imageElem;
+	var image;
+
+	$("#delete-me").empty();
+	$.each(result.photos.photo, function(i, item){
+		imageURL = "https://farm"+ item.farm +".staticflickr.com/"+ item.server +"/"+ item.id +"_"+ item.secret +"_b.jpg";
+
+		image = $(".templates .temp-images").clone();
+
+		imageElem = image.find("img");
+		imageElem.attr("src", imageURL);
+
+		$("#delete-me").append(imageElem);
+	});
+
+
+};
 
 // Called after a geoplace has been found and then requests the weather
 function getWeather(place){
@@ -57,8 +80,8 @@ function getWeather(place){
 		// console.log(result);
 		showWeather(result);
 	})
-	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
-		console.log(error);
+	.fail(function(jqXHR, status, error){ //this waits for the ajax to return with an error promise object
+		console.log(status +"\n"+ error +"\n"+ jqXHR.responseText);
 	});
 };
 
