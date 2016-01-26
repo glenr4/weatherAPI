@@ -9,12 +9,13 @@ body, html {
 
 
 #container {
-	width: 800px;
+	/*width: 800px;*/
+	max-width: 450px;
 	margin: 0 auto;
 }
 
 #weather-today {
-	width: 400px;
+	/*width: 450px;*/
 	margin: 0 auto;
 	overflow: auto;
 }
@@ -43,7 +44,20 @@ h1 {
 	text-align: center;
 }
 
+.following-days {
+	text-align: center;
+}
+
+.next-day {
+	width: 150px;
+	display: inline-block;
+	text-align: center;
+}
+
 .hidden {
-	/*display: none;*/
 	visibility: hidden;
+}
+
+.display-none {
+	display: none;
 }

@@ -49,11 +49,9 @@ function showWeather(result){
 	$("#weather-today .low").html("Low: "+ todayLow);
 	$("#weather-today .forecast").html(todayWeather);
 	
-	// Weather for following days
-	
-	// console.log(result.forecast.simpleforecast.forecastday);
 
 	// Weather for following days
+	$(".following-days").empty();
 	$.each(result.forecast.simpleforecast.forecastday, function(i, item){
 
 		if(i!==0){	// skip today
@@ -85,9 +83,9 @@ function showWeather(result){
 	});
 	// Show hidden elements
 	$(".hidden").removeClass("hidden");
-	// $("#weather-today").removeClass("hidden");
-
-
+	// But not for templates
+	$(".templates").addClass("display-none");
+	
 };
 
 // Formats temperature text

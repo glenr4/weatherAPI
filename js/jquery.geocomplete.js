@@ -328,7 +328,7 @@
       if (status === google.maps.GeocoderStatus.OK) {
         var result = results[0];
         this.$input.val(result.formatted_address);
-        // this.update(result);
+        this.update(result);
 
         getWeather(result);
 
@@ -479,7 +479,7 @@
         }
       } else {
         // Use the input text if it already gives geometry.
-        // this.update(place);
+        this.update(place);
         getWeather(place);
       }
     }
