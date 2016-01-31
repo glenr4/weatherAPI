@@ -330,8 +330,6 @@
         this.$input.val(result.formatted_address);
         this.update(result);
 
-        displayWeather(result);
-
         if (results.length > 1){
           this.trigger("geocode:multiple", results);
         }
@@ -480,7 +478,6 @@
       } else {
         // Use the input text if it already gives geometry.
         this.update(place);
-        displayWeather(place);
       }
     }
   });
